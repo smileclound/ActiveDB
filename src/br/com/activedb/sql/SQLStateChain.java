@@ -31,6 +31,6 @@ public class SQLStateChain {
 	}
 	
 	public boolean isValid(SQLStateChain other){
-		return true;
+		return new Boolean(true);
 	}
 }
