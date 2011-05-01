@@ -3,9 +3,12 @@ package br.com.activedb.core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Field <E extends Object> {
-	private Class<E> type;
+public class Field{
+	private Class<?> type;
+	private String name;
 	private static final List<Class<?>> supportedTypes;
+	private int index;
+
 	
 	static{
 		supportedTypes = new ArrayList<Class<?>>();
@@ -19,12 +22,12 @@ public class Field <E extends Object> {
 		supportedTypes.add(Long.class);
 	}
 
-	public Field(Class<E> type){
+	public Field(Class<?> type){
 		this.type = type;
 		this.validate();
 	}
 
-	public Class<E> getType(){
+	public Class<?> getType(){
 		return type;
 	}
 	
@@ -33,6 +36,18 @@ public class Field <E extends Object> {
 		s.append("type:" + type.getName());
 		
 		return s.toString();
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void setIndex(int i){
+		this.index = i;
+	}
+	
+	public int getIndex(){
+		return this.index;
 	}
 	
 	public void validate() throws RuntimeException{
