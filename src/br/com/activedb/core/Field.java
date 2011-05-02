@@ -22,8 +22,9 @@ public class Field{
 		supportedTypes.add(Long.class);
 	}
 
-	public Field(Class<?> type){
+	public Field(Class<?> type, String fieldName){
 		this.type = type;
+		this.name = fieldName;
 		this.validate();
 	}
 

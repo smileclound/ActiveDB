@@ -54,13 +54,13 @@ public class DataStore {
 		return store.get(id);
 	}
 	
-	public synchronized Collection<Record> lookupRecords(List<Rule<Object>> rules){
+	public synchronized Collection<Record> lookupRecords(List<Rule<? extends Comparable<?>>> rules){
 		List<Record> list = new ArrayList<Record>();
 		
 		for(Record rec : store.values()){
 	
 			rulesvalidation:
-			for(Rule<Object> rule : rules){
+			for(Rule<? extends Comparable<?>> rule : rules){
 				Field field = metaData.get(rule.getFieldID());
 				
 				if(field == null){
@@ -69,7 +69,7 @@ public class DataStore {
 				
 				int fieldIndex = field.getIndex();
 				
-				if(!rule.validateRule(rec.get(fieldIndex).getValue())){
+				if(!rule.validateRule(rec.get(fieldIndex))){
 					break rulesvalidation;
 				}
 				
@@ -88,6 +88,11 @@ public class DataStore {
 			
 			metaData.put(f.getName(), f);
 		}
+	}
+	
+	public void cleanStore(){
+		metaData.clear();
+		store.clear();
 	}
 	
 	

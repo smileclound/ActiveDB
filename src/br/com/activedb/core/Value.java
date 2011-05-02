@@ -1,15 +1,15 @@
 package br.com.activedb.core;
 
-public class Value<T> implements Comparable<T>{
-	private Comparable<T> value;
+public class Value<T extends Comparable<T>> implements Comparable<Value<T>>{
+	private T value;
 	private Class<?> type;
 	
-	public Value(Comparable<T> value, Class<?> type){
+	public Value(T value, Class<?> type){
 		this.value = value;
 		this.type = type;
 	}
 	
-	public Object getValue(){
+	public T getValue(){
 		return value;
 	}
 	
@@ -18,7 +18,18 @@ public class Value<T> implements Comparable<T>{
 	}
 
 	@Override
-	public int compareTo(T o) {
-		return this.value.compareTo(o);
+	public int compareTo(Value<T> o) {
+		return this.value.compareTo(o.value);
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean retVal = false;
+		
+		if(obj instanceof Value && this.value.equals(((Value<?>)obj).getValue())){
+			retVal = true;
+		}
+		
+		return retVal;
 	}
 }

@@ -1,6 +1,6 @@
 package br.com.activedb.core;
 
-public class Rule<T>{
+public class Rule<T extends Comparable<T>>{
 	private BooleanRule rule;
 	private Value<T> value;
 	private String fieldID;
@@ -11,8 +11,10 @@ public class Rule<T>{
 		this.fieldID = fieldID;
 	}
 	
-	public boolean validateRule(T value){
+	public boolean validateRule(Value<?> obj){	
 		boolean retVal = false;
+		@SuppressWarnings("unchecked")
+		Value<T> value = (Value<T>)obj;
 
 		switch (rule) {
 		case EQUALS:
@@ -41,7 +43,7 @@ public class Rule<T>{
 		return fieldID;
 	}
 	
-	enum BooleanRule{
+	public static enum BooleanRule{
 		EQUALS, HIGHER, LOWER, DIFF;
 	}
 
