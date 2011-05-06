@@ -15,9 +15,9 @@ public class StoreAndQueryTest {
 		List<Field> list = new ArrayList<Field>();
 
 		Field id = new Field(Integer.class, "id");
-		Field name = new Field(String.class, "name");
+		Field name = new Field(Integer.class, "name");
 		Field age = new Field(Integer.class, "age");
-		Field rate = new Field(Double.class, "rate");
+		Field rate = new Field(Integer.class, "rate");
 
 		list.add(id);
 		list.add(name);
