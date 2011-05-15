@@ -1,21 +1,20 @@
 package br.com.activedb.core;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class Record {
-	private List<Value<?>> values;
+	private Map<Field, Value<?>> values;
 	private String id;
 	
-	public Record(ArrayList<Value<?>> values){
+	public Record(Map<Field, Value<?>> values){
 		this.values = values;
 	}
 	
-	public List<Value<?>> getValues(){
+	public Map<Field, Value<?>> getValues(){
 		return values;
 	}
 	
-	public Value<?> get(int index){
+	public Value<?> get(Field index){
 		return values.get(index);
 	}
 	

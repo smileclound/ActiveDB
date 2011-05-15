@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Field{
 	private Class<?> type;
-	private String name;
+	private final String name;
 	private static final List<Class<?>> supportedTypes;
 	private int index;
-
+	private int hashCode;
 	
 	static{
 		supportedTypes = new ArrayList<Class<?>>();
@@ -26,6 +26,7 @@ public class Field{
 		this.type = type;
 		this.name = fieldName;
 		this.validate();
+		this.hashCode = 0;
 	}
 
 	public Class<?> getType(){
@@ -55,5 +56,25 @@ public class Field{
 		if(!supportedTypes.contains(type)){
 			throw new RuntimeException("Invalid type for field:" + type.getName());
 		}
+	}
+	
+	@Override
+	public boolean equals(Object obj) {	
+		boolean retval = false;
+	
+		if(obj instanceof Field && ((Field)obj).getName().equals(this.name)){
+			retval =  true;
+		}
+		
+		return retval;
+	}
+	
+	@Override
+	public int hashCode() {
+		if(this.hashCode == 0){
+			hashCode = hashCode * 37 + name.hashCode();
+		}
+		
+		return hashCode;
 	}
 }

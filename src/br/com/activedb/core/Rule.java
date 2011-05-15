@@ -1,5 +1,8 @@
 package br.com.activedb.core;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Rule<T extends Comparable<T>>{
 	private BooleanRule rule;
 	private Value<T> value;
@@ -23,20 +26,40 @@ public class Rule<T extends Comparable<T>>{
 		case HIGHER:
 			retVal = this.value.compareTo(value) > 0;
 			break;
-	
 		case LOWER:
 			retVal = this.value.compareTo(value) < 0;			
 		break;
-		
 		case DIFF:
 			retVal = !this.value.equals(value);
 		break;	
-
 		default:
 			retVal = false;
 		}
 		
 		return retVal;
+	}
+	
+	public Set<String> getValidKeysFromIndexForValue(FieldIndex index){
+		Set<String> result = null;
+		
+		switch (rule) {
+		case EQUALS:
+			result = index.getAllIdsForValueEqualsTo(value);			
+			break;
+		case HIGHER:
+			result = index.getAllIdsForValueHigherThan(value, true);
+			break;
+		case LOWER:
+			result = index.getAllIdsForValueLowerThan(value, true);		
+		break;
+		case DIFF:
+			result = index.getAllIdsForValueDifferentThan(value);
+		break;	
+		default:
+			result = new HashSet<String>(0);
+		}
+		
+		return result;
 	}
 	
 	public String getFieldID(){
