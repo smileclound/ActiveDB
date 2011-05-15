@@ -18,7 +18,6 @@ public class AssyncIndexUpdater implements Runnable{
 
 	@Override
 	public void run() {
-
 		System.out.print("AssyncIndexUpdater started running. Updating indexes..");
 		switch (action) {
 		case INSERT:
