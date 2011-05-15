@@ -210,6 +210,7 @@ public class DataStore {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void updateIndexesOnRemove(Record record, Map<Field, FieldIndex> indexes){
 		for(Field key : record.getValues().keySet()){
 			FieldIndex index = indexes.get(key);
